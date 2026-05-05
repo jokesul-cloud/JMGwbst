@@ -47,6 +47,7 @@ export function Navbar() {
   const navLinks = [
     { name: "Library", href: "/library", icon: <Play className="w-4 h-4 mr-2" /> },
     { name: "Pricing", href: "/pricing", icon: <ShoppingBag className="w-4 h-4 mr-2" /> },
+    { name: "About", href: "/about", icon: <UserIcon className="w-4 h-4 mr-2" /> },
   ];
 
   return (

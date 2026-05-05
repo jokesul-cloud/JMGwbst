@@ -7,10 +7,14 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, Star, Zap, Shield } from "lucide-react";
 import Link from "next/link";
 
+import { useState } from "react";
+import { toast } from "sonner";
+
 const PLANS = [
   {
     name: "Free",
     price: "0",
+    priceId: null,
     description: "Start your journey with essential drills and insights.",
     features: [
       "Access to 'Foundation' series",
@@ -25,6 +29,7 @@ const PLANS = [
   {
     name: "Premium Member",
     price: "29",
+    priceId: "price_premium_monthly", // Placeholder
     period: "month",
     description: "The complete platform experience for serious golfers.",
     features: [
@@ -43,6 +48,7 @@ const PLANS = [
   {
     name: "Elite Performance",
     price: "99",
+    priceId: "price_elite_monthly", // Placeholder
     period: "month",
     description: "Tailored coaching for those chasing professional levels.",
     features: [
@@ -61,6 +67,36 @@ const PLANS = [
 ];
 
 export default function Pricing() {
+  const [loading, setLoading] = useState<string | null>(null);
+
+  const handleSubscribe = async (planName: string, priceId: string | null) => {
+    if (!priceId) return;
+
+    setLoading(planName);
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          priceId: priceId,
+          mode: "subscription",
+        }),
+      });
+
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        toast.error("Failed to create checkout session");
+      }
+    } catch (error) {
+      console.error("Subscription error:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setLoading(null);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-black">
       <Navbar />
@@ -131,8 +167,19 @@ export default function Pricing() {
                   ))}
                 </div>
 
-                <Link href={plan.name === "Free" ? "/signup" : `/checkout?plan=${plan.name.toLowerCase()}`}>
+                {plan.name === "Free" ? (
+                  <Link href="/signup">
+                    <Button 
+                      variant={plan.buttonVariant}
+                      className="w-full h-14 rounded-2xl font-bold text-lg border-white/10 hover:bg-white/5"
+                    >
+                      {plan.buttonText}
+                    </Button>
+                  </Link>
+                ) : (
                   <Button 
+                    onClick={() => handleSubscribe(plan.name, plan.priceId)}
+                    disabled={loading === plan.name}
                     variant={plan.buttonVariant}
                     className={`w-full h-14 rounded-2xl font-bold text-lg ${
                       plan.highlight 
@@ -140,9 +187,9 @@ export default function Pricing() {
                         : "border-white/10 hover:bg-white/5"
                     }`}
                   >
-                    {plan.buttonText}
+                    {loading === plan.name ? "Processing..." : plan.buttonText}
                   </Button>
-                </Link>
+                )}
               </motion.div>
             ))}
           </div>

@@ -14,8 +14,34 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Golf Splooch Lessons | Premium Golf Coaching",
-  description: "Elevate your game with premium video lessons and personalized coaching.",
+  title: {
+    default: "Golf Splooch Lessons | Premium Golf Coaching",
+    template: "%s | Golf Splooch Lessons"
+  },
+  description: "Elevate your game with premium video lessons, personalized drills, and expert coaching for all skill levels.",
+  keywords: ["golf coaching", "golf lessons", "swing mechanics", "short game", "putting", "driver power"],
+  authors: [{ name: "Chris 'Splooch' Miller" }],
+  creator: "Golf Splooch Team",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://golf-splooch.vercel.app",
+    siteName: "Golf Splooch Lessons",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Golf Splooch Lessons",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Golf Splooch Lessons | Premium Golf Coaching",
+    description: "Elevate your game with premium video lessons and personalized coaching.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({

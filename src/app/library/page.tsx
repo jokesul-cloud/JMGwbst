@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Play, Search, Filter, Clock, Star, Lock } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 const CATEGORIES = ["All", "Swing Mechanics", "Short Game", "Driver", "Putting", "Course Management"];
@@ -145,11 +146,10 @@ export default function Library() {
                 <Link href={`/series/${series.id}`}>
                   <Card className="group border-white/10 bg-zinc-900/50 overflow-hidden hover:border-golf-green/40 transition-all hover:translate-y-[-4px]">
                     <div className="aspect-video relative overflow-hidden">
-                      <Image 
+                      <img 
                         src={series.thumbnail} 
                         alt={series.title}
-                        fill
-                        className="object-cover transition-transform group-hover:scale-105 duration-500"
+                        className="object-cover w-full h-full transition-transform group-hover:scale-105 duration-500"
                       />
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <div className="w-12 h-12 bg-golf-green rounded-full flex items-center justify-center text-black">
