@@ -87,38 +87,36 @@ export function Navbar() {
                 </Button>
               </Link>
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                    <Avatar className="h-8 w-8 border border-white/20">
-                      <AvatarImage src={user.user_metadata.avatar_url} alt={user.email} />
-                      <AvatarFallback className="bg-golf-green text-black uppercase">
-                        {user.email?.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
+                <DropdownMenuTrigger className="relative h-8 w-8 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
+                  <Avatar className="h-8 w-8 border border-white/20">
+                    <AvatarImage src={user.user_metadata.avatar_url} alt={user.email} />
+                    <AvatarFallback className="bg-golf-green text-black uppercase">
+                      {user.email?.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 bg-black border-white/10 text-white" align="end" forceMount>
+                <DropdownMenuContent className="w-56 bg-black border-white/10 text-white" align="end">
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
                       <p className="font-medium text-sm">{user.email}</p>
                     </div>
                   </div>
                   <DropdownMenuSeparator className="bg-white/10" />
-                  <DropdownMenuItem asChild className="focus:bg-white/5 focus:text-golf-green cursor-pointer">
-                    <Link href="/dashboard/profile">
+                  <DropdownMenuItem className="focus:bg-white/5 focus:text-golf-green cursor-pointer p-0">
+                    <Link href="/dashboard/profile" className="flex w-full items-center px-2 py-1.5">
                       <UserIcon className="mr-2 h-4 w-4" />
                       <span>Profile</span>
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild className="focus:bg-white/5 focus:text-golf-green cursor-pointer">
-                    <Link href="/dashboard/my-library">
+                  <DropdownMenuItem className="focus:bg-white/5 focus:text-golf-green cursor-pointer p-0">
+                    <Link href="/dashboard/my-library" className="flex w-full items-center px-2 py-1.5">
                       <LayoutDashboard className="mr-2 h-4 w-4" />
                       <span>My Dashboard</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-white/10" />
                   <DropdownMenuItem 
-                    className="focus:bg-red-500/10 focus:text-red-500 cursor-pointer text-red-400"
+                    className="focus:bg-red-500/10 focus:text-red-500 cursor-pointer text-red-400 flex w-full items-center px-2 py-1.5"
                     onClick={handleSignOut}
                   >
                     <LogOut className="mr-2 h-4 w-4" />

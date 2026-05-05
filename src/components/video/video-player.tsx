@@ -3,16 +3,15 @@
 import { useEffect, useRef } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
-import Player from "video.js/dist/video-js";
 
 interface VideoPlayerProps {
   options: any;
-  onReady?: (player: Player) => void;
+  onReady?: (player: any) => void;
 }
 
 export const VideoPlayer = (props: VideoPlayerProps) => {
   const videoRef = useRef<HTMLDivElement>(null);
-  const playerRef = useRef<Player | null>(null);
+  const playerRef = useRef<any>(null);
   const { options, onReady } = props;
 
   useEffect(() => {
